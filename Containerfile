@@ -172,6 +172,14 @@ RUN rpm-ostree override replace \
     --from repo=updates \
         libmount \
         || true && \
+    rpm-ostree override replace \
+    --experimental \
+    --from repo=updates \
+        glibc \
+        glibc-common \
+        glibc-all-langpacks \
+        glibc-gconv-extra \
+        || true && \
     rpm-ostree override remove \
         glibc32 \
         || true
@@ -268,7 +276,13 @@ RUN rpm-ostree install \
         glow \
         gum \
         setools \
-        redhat-lsb-core && \
+        redhat-lsb-core \
+        cockpit-networkmanager \
+        cockpit-podman \
+        cockpit-selinux \
+        cockpit-system \
+        cockpit-navigator \
+        cockpit-storaged && \
     pip install --prefix=/usr topgrade && \
     rpm-ostree install \
         ublue-update && \
@@ -287,7 +301,6 @@ RUN rpm-ostree install \
         at-spi2-core.i686 \
         atk.i686 \
         vulkan-loader.i686 \
-        mesa-vulkan-drivers.i686 \
         alsa-lib.i686 \
         fontconfig.i686 \
         gtk2.i686 \
@@ -310,10 +323,12 @@ RUN rpm-ostree install \
         libatomic.i686 \
         pipewire-alsa.i686 \
         clinfo && \
+    sed -i '0,/enabled=1/s//enabled=0/' /etc/yum.repos.d/fedora-updates.repo && \
+    rpm-ostree install \
+        mesa-vulkan-drivers.i686 && \
     sed -i '0,/enabled=0/s//enabled=1/' /etc/yum.repos.d/rpmfusion-nonfree-steam.repo && \
     sed -i '0,/enabled=1/s//enabled=0/' /etc/yum.repos.d/rpmfusion-nonfree.repo && \
     sed -i '0,/enabled=1/s//enabled=0/' /etc/yum.repos.d/rpmfusion-nonfree-updates.repo && \
-    sed -i '0,/enabled=1/s//enabled=0/' /etc/yum.repos.d/fedora-updates.repo && \
     rpm-ostree install \
         steam && \
     sed -i '0,/enabled=1/s//enabled=0/' /etc/yum.repos.d/rpmfusion-nonfree-steam.repo && \
