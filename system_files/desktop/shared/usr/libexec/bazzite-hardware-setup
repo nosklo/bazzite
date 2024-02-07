@@ -7,7 +7,7 @@ IMAGE_FLAVOR=$(jq -r '."image-flavor"' < $IMAGE_INFO)
 FEDORA_VERSION=$(jq -r '."fedora-version"' < $IMAGE_INFO)
 
 # SCRIPT VERSION
-HWS_VER=28
+HWS_VER=30
 HWS_VER_FILE="/etc/bazzite/hws_version"
 HWS_VER_RAN=$(cat $HWS_VER_FILE)
 
@@ -182,13 +182,6 @@ if [[ $IMAGE_NAME =~ "deck" || $IMAGE_NAME =~ "ally" || $IMAGE_NAME =~ "framegam
     systemctl enable --now ds-inhibit.service
   else
     echo "Generic device detected. Performing setup..."
-    if /usr/libexec/hardware/hhd-supported-hardware; then
-      echo "HHD supported handheld detected, disabling handycon"
-      systemctl disable --now handycon.service
-    elif /usr/libexec/hardware/handycon-supported-hardware; then
-      echo "HandyGCCS supported handheld detected, enabling handycon"
-      systemctl enable --now handycon.service
-    fi
     systemctl disable --now jupiter-fan-control.service
     systemctl disable --now vpower.service
     systemctl disable --now jupiter-biosupdate.service
@@ -233,28 +226,32 @@ if grep -qv "graphical.target" <<< "$(systemctl get-default)"; then
   systemctl set-default graphical.target
 fi
 
-# CLEAN UP
-# AMDGPU settings change that the fsync kernel now handles.
-if [[ -f "/etc/modprobe.d/amdgpu.conf" ]]; then
-  rm -f "/etc/modprobe.d/amdgpu.conf"
+# Ensure files needed for topgrade are always present
+if [[ ! -f "/etc/ublue-os/topgrade.toml" ]]; then
+  mkdir -p "/etc/ublue-os"
+  cp "/usr/etc/ublue-os/topgrade.toml" "/etc/ublue-os/topgrade.toml"
 fi
-# Controller changes are no longer needed thanks to patched xone driver.
-if [[ -f "/etc/modprobe.d/xone.conf" ]]; then
-  rm -f "/etc/modprobe.d/xone.conf"
+
+if [[ ! -f "/etc/ublue-update/topgrade-system.toml" ]]; then
+  mkdir -p "/etc/ublue-update"
+  cp "/usr/etc/ublue-update/topgrade-system.toml" "/etc/ublue-update/topgrade-system.toml"
 fi
-if [[ -f "/etc/modprobe.d/xpad-noone-blacklist.conf" ]]; then
-  rm -f "/etc/modprobe.d/xpad-noone-blacklist.conf"
+
+if [[ ! -f "/etc/ublue-update/topgrade-user.toml" ]]; then
+  mkdir -p "/etc/ublue-update"
+  cp "/usr/etc/ublue-update/topgrade-user.toml" "/etc/ublue-update/topgrade-user.toml"
 fi
-if [[ -f "/etc/modules-load.d/xpad-noone.conf" ]]; then
-  rm -f "/etc/modules-load.d/xpad-noone.conf"
+
+if [[ ! -f "/etc/ublue-update/ublue-update.toml" ]]; then
+  mkdir -p "/etc/ublue-update"
+  cp "/usr/etc/ublue-update/ublue-update.toml" "/etc/ublue-update/ublue-update.toml"
 fi
-if [[ -f "/etc/modprobe.d/xpadneo.conf" ]]; then
-  rm -f "/etc/modprobe.d/xpadneo.conf"
+
+if [[ ! -f "/etc/ublue-update.d/system/00-system-update.py" ]]; then
+  mkdir -p "/etc/ublue-update.d/system"
+  cp "/usr/etc/ublue-update.d/system/00-system-update.py" "/etc/ublue-update.d/system/00-system-update.py"
 fi
-# Previous optional solution for zenpower3 that has been replaced with zenergy.
-if [[ -f "/etc/modprobe.d/amdcpu.conf" ]]; then
-  rm -f "/etc/modprobe.d/amdcpu.conf"
-fi
+
 
 mkdir -p /etc/bazzite
 echo $HWS_VER > $HWS_VER_FILE

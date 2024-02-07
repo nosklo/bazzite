@@ -93,7 +93,7 @@ rpm-ostree rebase ostree-unverified-registry:ghcr.io/ublue-os/bazzite-nvidia:sta
 
 ### Steam Deck/Home Theater PCs (HTPCs)
 > [!IMPORTANT]  
-Devices that are NOT the Steam Deck can still use the bazzite-deck images, but must use an AMD/Intel GPU.
+Devices that are NOT the Steam Deck can still use the `bazzite-deck` images, but must use a modern AMD GPU. Intel Arc GPUs also have been confirmed to work.
 
 Variant designed for usage as an alternative to SteamOS on the Steam Deck, and for a console-like experience on HTPCs, available as `bazzite-deck`:
 
@@ -103,7 +103,7 @@ Variant designed for usage as an alternative to SteamOS on the Steam Deck, and f
 - **Able to be booted even if the drive is full.**
 - **Support for every language supported by upstream Fedora.**
 - **Uses Wayland on the desktop with [support for Steam input](https://github.com/Supreeeme/extest).**
-- Includes [HHD](https://github.com/hhd-dev/hhd) and [HandyGCCS](https://github.com/ShadowBlip/HandyGCCS) for expanded input support on non-Valve handhelds. 
+- Includes [HHD](https://github.com/hhd-dev/hhd) for expanded input support on non-Valve handhelds. 
 - Features ported versions of most SteamOS packages, including drivers, firmware updaters, and fan controllers [from the evlaV repository](https://gitlab.com/evlaV).
 - Patched Mesa for proper framerate control from Gamescope.
 - Comes with patches from [SteamOS BTRFS](https://gitlab.com/popsulfr/steamos-btrfs) for full BTRFS support for the SD card by default.
@@ -269,7 +269,7 @@ Read the [FAQ](https://universal-blue.discourse.group/docs?topic=33) for details
 - [Dual Booting Guide](https://universal-blue.discourse.group/docs?topic=129)
 - [Miscellaneous Documentation](https://universal-blue.discourse.group/docs?topic=287)
 
-Find additional documentation surrounding the project [here](https://universal-blue.discourse.group/docs?category=5).
+Find additional documentation surrounding the project [here](http://docs.bazzite.gg/).
 
 Check out our [newsletters](https://universal-blue.discourse.group/tag/bazzite-buzz) that get published on a regular basis for updates on the project.
 
@@ -401,7 +401,7 @@ We also ship a config for the popular [pull app](https://github.com/apps/pull) i
 
 ## Join The Community
 
-You can find us on the [Universal Blue Discord](https://discord.gg/f8MUghG5PB) and view the archive of support threads on our [Answer Overflow](https://www.answeroverflow.com/c/1072614816579063828/1087140957096517672).
+You can find us on the [Universal Blue Discord](https://discord.gg/f8MUghG5PB) and view the [archive](https://www.answeroverflow.com/c/1072614816579063828/1143023993041993769) of support threads without an account.
 
 Discuss and create user guides over at the [Universal Blue Discourse Forums](https://universal-blue.discourse.group/c/bazzite/5).
 
