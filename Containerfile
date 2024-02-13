@@ -427,7 +427,8 @@ RUN if grep -q "kinoite" <<< "${BASE_IMAGE_NAME}"; then \
     --experimental \
     --from repo=copr:copr.fedorainfracloud.org:kylegospo:prompt \
         vte291 \
-        vte-profile && \
+        vte-profile \
+        libadwaita && \
     rpm-ostree install \
         prompt \
         nautilus-open-any-terminal \
