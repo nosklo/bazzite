@@ -7,7 +7,7 @@
 # [🇺🇸](https://github.com/ublue-os/bazzite/blob/main/README.md) [🇪🇸](https://github.com/ublue-os/bazzite/blob/main/README-SPA.md) [🇮🇩](https://github.com/ublue-os/bazzite/blob/main/README-ID.md)
 
 <p align="center">
-  <a href="https://bazzite.gg/#image-picker"><img src="/repo_content/download.png?raw=true" alt="Download Bazzite"/></a>
+  <a href="https://download.bazzite.gg/"><img src="/repo_content/download.png?raw=true" alt="Download Bazzite"/></a>
 </p>
 
 ---
@@ -32,6 +32,8 @@
 ---
 
 ## About & Features
+
+[Please see our website](https://bazzite.gg/) for a newcomer-friendly explaination of Bazzite. This readme will cover everything in-depth.
 
 [Bazzite](https://bazzite.gg/) is an OCI image that serves as an alternative operating system for the [Steam Deck](https://www.steamdeck.com/), and a ready-to-game SteamOS-like for desktop computers and living room home theater PCs.
 
@@ -124,7 +126,6 @@ Variant designed for usage as an alternative to SteamOS on the Steam Deck, and f
 - Applies SteamOS's kernel parameters.
 - Color calibrated display profiles for matte and reflective Steam Deck screens included.
 - Default-disabled power-user features, including:
-    - Service for low-risk undervolting of the Steam Deck via [RyzenAdj](https://github.com/FlyGoat/RyzenAdj) and [Ryzen SMU](https://gitlab.com/leogx9r/ryzen_smu), see `ryzenadj.service` and `/etc/default/ryzenadj`.
     - Service for limiting the max charge level of the battery, see `batterylimit.service` and `/etc/default/batterylimit`. <sup><sub>(Works even when the device is off)</sub></sup>
     - Built in support for display overclocking. For example, add `GAMESCOPE_OVERRIDE_REFRESH_RATE=40,70` to `/etc/environment`.
     - Ability to use X11 on the desktop if desired by editing `/etc/default/desktop-wayland`.
@@ -145,6 +146,8 @@ rpm-ostree rebase ostree-unverified-registry:ghcr.io/ublue-os/bazzite-deck:stabl
 ```
 
 #### Alternative Handhelds
+
+Please refer to our [Handheld Wiki](https://universal-blue.discourse.group/docs?topic=1038) for required setting changes and Decky Loader plugins for Steam Gaming Mode on your specific Handheld.
 
 If you're using this image on a handheld other than the Steam Deck, you can get TDP control via the SimpleDeckyTDP Decky Loader Plugin.
 - First install Decky Loader with: `ujust setup-decky`
@@ -247,7 +250,6 @@ Read the [FAQ](https://universal-blue.discourse.group/docs?topic=33) for details
 - [Installing and Managing Applications](https://universal-blue.discourse.group/docs?topic=35)
 - [Updates, Rollbacks, and Rebasing](https://universal-blue.discourse.group/docs?topic=36)
 - [Gaming Guide](https://universal-blue.discourse.group/docs?topic=31)
-- [Dual Booting Guide](https://universal-blue.discourse.group/docs?topic=129)
 
 View [additional documentation](http://docs.bazzite.gg/) surrounding the project.
 
