@@ -2,7 +2,7 @@
 
 %global _default_patch_fuzz 2
 %global build_timestamp %(date +"%Y%m%d")
-%global gamescope_tag 3.14.7
+%global gamescope_tag 3.14.11
 
 Name:           gamescope
 Version:        100.%{gamescope_tag}
@@ -17,7 +17,8 @@ Source0:        stb.pc
 
 Patch0:         hardware.patch
 Patch1:         720p.patch
-Patch2:         disable-steam-touch-click-atom.patch
+Patch2:         external-rotation.patch
+Patch3:         panel-type.patch
 
 BuildRequires:  meson >= 0.54.0
 BuildRequires:  ninja-build
@@ -74,14 +75,17 @@ BuildRequires:  git
 # libliftoff hasn't bumped soname, but API/ABI has changed for 0.2.0 release
 Requires:       libliftoff%{?_isa} >= %{libliftoff_minver}
 Requires:       xorg-x11-server-Xwayland
+Requires:       gamescope-libs = %{version}
 Recommends:     mesa-dri-drivers
 Recommends:     mesa-vulkan-drivers
 
-Provides:  gamescope-libs
-Obsoletes: gamescope-libs
-
 %description
 %{name} is the micro-compositor optimized for running video games on Wayland.
+
+%package libs
+Summary:	libs for %{name}
+%description libs
+%summary
 
 %prep
 git clone --depth 1 --branch %{gamescope_tag} https://github.com/ValveSoftware/gamescope
@@ -108,9 +112,11 @@ cd gamescope
 %files
 %license gamescope/LICENSE
 %doc gamescope/README.md
-%{_bindir}/gamescope
+%attr(0755, root, root) %caps(cap_sys_nice=eip) %{_bindir}/gamescope
+
+%files libs
 %{_libdir}/libVkLayer_FROG_gamescope_wsi_*.so
 %{_datadir}/vulkan/implicit_layer.d/VkLayer_FROG_gamescope_wsi.*.json
 
-
 %changelog
+{{{ git_dir_changelog }}}
